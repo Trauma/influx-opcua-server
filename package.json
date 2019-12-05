@@ -4,7 +4,9 @@
   "description": "A simple server for exposing data inside InfluxDB over OPCUA",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-linux": "pkg --targets node12-linux-x64 index.js --config package.json --output influx-opcua-server-linux",
+    "build-alpine": "pkg --targets node12-alpine-x64 index.js --config package.json --output influx-opcua-server-alpine"
   },
   "repository": {
     "type": "git",
@@ -20,14 +22,22 @@
     "url": "https://github.com/factrylabs/influx-opcua-server/issues"
   },
   "homepage": "https://github.com/factrylabs/influx-opcua-server#readme",
+  "pkg": {
+    "assets": [
+      "node_modules/node-opcua-server/certificates/*", 
+      "node_modules/node-opcua-server-discovery/certificates/*",
+      "node_modules/node-opcua-client/certificates/*",
+      "node_modules/node-opcua-server/certificates/PKI/**/**/*"
+    ]
+  },
   "devDependencies": {
-    "pkg": "^4.3.5",
-    "standard": "^12.0.1"
+    "pkg": "^4.4.0",
+    "standard": "^14.3.1"
   },
   "dependencies": {
-    "ajv": "^6.7.0",
-    "bluebird": "^3.5.3",
-    "influx": "^5.0.7",
-    "node-opcua": "^0.5.6"
+    "ajv": "^6.10.2",
+    "bluebird": "^3.7.2",
+    "influx": "^5.5.1",
+    "node-opcua": "^0.7.4"
   }
 }
