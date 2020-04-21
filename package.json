@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build-arm": "pkg --targets node12.2.0-linux-armv7 index.js --config package.json --output influx-opcua-server-linux",
     "build-linux": "pkg --targets node12-linux-x64 index.js --config package.json --output influx-opcua-server-linux",
     "build-alpine": "pkg --targets node12-alpine-x64 index.js --config package.json --output influx-opcua-server-alpine"
   },
@@ -24,7 +25,7 @@
   "homepage": "https://github.com/factrylabs/influx-opcua-server#readme",
   "pkg": {
     "assets": [
-      "node_modules/node-opcua-server/certificates/*", 
+      "node_modules/node-opcua-server/certificates/*",
       "node_modules/node-opcua-server-discovery/certificates/*",
       "node_modules/node-opcua-client/certificates/*",
       "node_modules/node-opcua-server/certificates/PKI/**/**/*"

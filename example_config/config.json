@@ -1,21 +1,21 @@
 {
   "opcua": {
     "port": 7000,
-    "user": "jeroen",
-    "pass": "jero3n"
+    "user": "opc",
+    "pass": "opc"
   },
   "influx": {
-    "protocol": "https",
-    "host": "localhost",
+    "protocol": "http",
+    "host": "influxdb",
     "port": 8086,
-    "user": "someone",
-    "pass": "something",
-    "database": "testdata"
+    "user": "mqtt",
+    "pass": "mqtt",
+    "database": "iot_demo"
   },
   "measurementsToExpose": [
     {
-      "database": "testdata",
-      "name": "uatest"
+      "database": "iot_demo",
+      "name": "temp"
     }
   ]
 }

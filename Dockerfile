@@ -1,18 +1,8 @@
-FROM alpine:3.10 as build
+FROM node as build
 LABEL autodelete="true"
 
 # Create app directory
 WORKDIR /opt/influx-opcua-server
-
-# Install dependencies
-RUN apk update && apk upgrade && apk add --no-cache \
-  nodejs \
-  npm \
-  openssl \
-  bash \ 
-  musl-dev \
-  python \
-  make
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -26,22 +16,18 @@ RUN npm install
 COPY . .
 
 # Create Binary
-RUN npm run build-alpine
+RUN npm run build-arm
 
-FROM alpine:3.10
-
-# Install dependencies
-RUN apk update && apk upgrade && apk add --no-cache \
-  nodejs
+FROM node
 
 WORKDIR /opt/influx-opcua-server
 
 # Copy React Build Folder
 COPY --from=build /opt/influx-opcua-server/example_config/config.json /opt/influx-opcua-server/config.json
-COPY --from=build /opt/influx-opcua-server/influx-opcua-server-alpine /opt/influx-opcua-server/influx-opcua-server
+COPY --from=build /opt/influx-opcua-server/influx-opcua-server-linux /opt/influx-opcua-server/influx-opcua-server
 
 # Add manager user so we aren't running as root.
-RUN adduser -h /opt/influx-opcua-server -D -H manager \
+RUN useradd -m -b /opt/influx-opcua-server manager \
     && chown -R manager:manager /opt/influx-opcua-server
 
 # Set Privileges
